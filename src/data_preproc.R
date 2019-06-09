@@ -114,7 +114,7 @@ burger_sig[is.na(burger_sig)] <- 0
 shp_sig@data %<>%
   left_join(burger_sig, by = c("SIG_CD" = "id"))
 
-# merge area to shp_sig
+# add area to shp_sig
 area_sig <- areaPolygon(shp_sig) %>%
   divide_by(1e+06)
 shp_sig@data %<>% 
@@ -122,6 +122,12 @@ shp_sig@data %<>%
 
 shp_sig@data %<>%
   mutate(id = 0:(length(shp_sig)-1) %>% as.character)
+
+# add centroid to shp_sig
+cent = centroid(shp_sig)
+colnames(cent) <- c("long", "lat")
+shp_sig@data %<>%
+  cbind(cent)
 
 # 
 # breaks = shp_sig@data$L %>% quantile(probs = c(0, .25, 0.5, .75, 1 )) 
