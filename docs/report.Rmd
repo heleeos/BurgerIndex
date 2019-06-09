@@ -1,0 +1,29 @@
+---
+title: "Burger"
+subtitle: "버거지수의 실제와 발전"
+date: "June 10, 2019"
+author: "이경원"
+output: 
+  html_notebook:
+    df_print: paged
+    toc: true
+    toc_depth: 5
+    number_sections: true  ## if you want number sections at each table header
+    theme: flatly
+    highlight: tango
+    css: "styles.css"
+    toc_float: 
+      collapsed: true
+      smooth_scroll: true
+    includes:
+      before_body: "beforebody.html"
+---
+
+map data 출처: http://www.gisdeveloper.co.kr/?p=2332
+
+```{r load library}
+require(tidyverse) # data processing
+require(spdep) # spatial analysis
+require(rstan) # MCMC
+require(rgda); require(foreign); require(magrittr); require(maps); require(maptools); require(mapproj); require(RColorBrewer) # spatial
+```
