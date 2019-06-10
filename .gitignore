@@ -1,10 +1,25 @@
 # for copyright
 */refs/*
 data/*
+fonts/
 
 # aux files
+*.code-workspace
 .Rproj.user
 .Rhistory
 .idea
 .ipynb_checkpoints
 .Rapp.history
+
+# latex 
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.xdv

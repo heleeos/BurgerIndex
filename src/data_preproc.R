@@ -114,6 +114,10 @@ burger_sig[is.na(burger_sig)] <- 0
 shp_sig@data %<>%
   left_join(burger_sig, by = c("SIG_CD" = "id"))
 
+# berger index
+shp_sig@data %<>%
+  mutate(BI = (B+M+K+1/2)/(L+1/2))
+
 # add area to shp_sig
 area_sig <- areaPolygon(shp_sig) %>%
   divide_by(1e+06)
@@ -125,7 +129,7 @@ shp_sig@data %<>%
 
 # add centroid to shp_sig
 cent = centroid(shp_sig)
-colnames(cent) <- c("long", "lat")
+colnames(cent) <- c("cen_long", "cen_lat")
 shp_sig@data %<>%
   cbind(cent)
 
