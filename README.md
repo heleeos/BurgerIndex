@@ -16,32 +16,17 @@ Description
 ------------------------------------------------
 
 ```bash
-|-- README.md                             
-|-- burger.Rproj
-|-- data                                  
-|   |-- burger                              # burger dataset
-|   |-- map                                 # Korean map shp files
-|   |-- nb_sig_mat.csv                   
-|   |-- pop                                 # population datasets
-|   `-- shp_sig.Rdata                      
-|-- docs                                    # docstrings
-|   |-- beforebody.html         
-|   |-- report.Rmd
-|   |-- report.nb.html
-|   `-- styles.css
+|-- README.md
+|-- burger.Rproj                            # R project
+|-- data                                    # dir for datasets   
+|   |-- burger                              # burger data
+|   |-- map                                 # Korean map data
+|   `-- pop                                 # Korean population data
+|-- docs                                    # docstring
 |-- figs                                    # figures
-|   |-- B_sig.pdf
-|   |-- K_sig.pdf
-|   |-- L_sig.pdf
-|   |-- MS_sig.pdf
-|   |-- M_sig.pdf
-|   |-- bi_sig.pdf
-|   |-- g_sig.pdf
-|   `-- popden_sig.pdf
-`-- src                                     # source code
-    |-- data_preproc.R                      # data preprocessing
-    |-- eda.R                               # EDA
-    `-- plot.R                              # visualize
+|-- fonts                                   # fonts for docstring
+|-- rdata                                   # data
+`-- src                                     # source codes
 ```
 
 Note

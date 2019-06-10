@@ -6,7 +6,7 @@ require(tidyverse)
 require(rgdal); require(foreign); require(magrittr); require(rgeos); require(geosphere)
 require(maps); require(maptools); require(mapproj); require(RColorBrewer) # spatial
 
-load(file = "data/shp_sig.Rdata")
+load(file = "rdata/shp_sig.Rdata")
 
 # plotting maps
 # g_sig <- ggplot(data = shp_sig) +

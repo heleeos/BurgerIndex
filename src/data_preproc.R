@@ -3,7 +3,7 @@
 
 require(tidyverse)
 require(rgdal); require(foreign); require(magrittr); require(rgeos); require(geosphere)
-require(maps); require(maptools); require(mapproj); require(RColorBrewer) # spatial
+require(maps); require(maptools); require(mapproj); require(RColorBrewer); require(spdep) # spatial
 
 # load burger
 B <- readxl::read_xlsx("data/burger/res_burgerking.xlsx", col_names = c("loc", "num"), skip = 1)
@@ -11,8 +11,6 @@ M <- readxl::read_xlsx("data/burger/res_mcdonalds.xlsx", col_names = c("loc", "n
 K <- readxl::read_xlsx("data/burger/res_kfc.xlsx", col_names = c("loc", "num"), skip = 1)
 L <- readxl::read_xlsx("data/burger/res_lotteria.xlsx", col_names = c("loc", "num"), skip = 1)
 MS <- readxl::read_xlsx("data/burger/res_momstouch.xlsx", col_names = c("loc", "num"), skip = 1)
-
-merge(B, M, by = "loc")
 
 ndata = c("B", "M", "K", "L", "MS")
 burger <- B
@@ -140,9 +138,8 @@ shp_sig@data %<>%
 #   mutate(QTL = cut(L, breaks = breaks, include.lowest = T))
 
 # making neighbor list
-require(spdep)
 nb_sig <- poly2nb(shp_sig)
 nb_sig_mat <- nb2mat(nb_sig, style = "B", zero.policy = TRUE)
-write.csv(nb_sig_mat, file = "data/nb_sig_mat.csv")
+write.csv(nb_sig_mat, file = "rdata/nb_sig_mat.csv", row.names = FALSE)
 
-save(list = c("shp_sig"), file = "data/shp_sig.Rdata")
+save(list = c("shp_sig"), file = "rdata/shp_sig.Rdata")

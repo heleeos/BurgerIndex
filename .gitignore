@@ -1,7 +1,7 @@
 # for copyright
 */refs/*
 data/*
-fonts/
+# fonts/
 
 # aux files
 *.code-workspace
@@ -10,6 +10,7 @@ fonts/
 .idea
 .ipynb_checkpoints
 .Rapp.history
+.vscode
 
 # latex 
 *.aux

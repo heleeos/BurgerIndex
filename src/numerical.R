@@ -7,7 +7,7 @@ require(maps); require(maptools); require(mapproj); require(RColorBrewer) # spat
 require(GGally) # distributions
 
 # load data
-load("data/shp_sig.Rdata")
+load("rdata/shp_sig.Rdata")
 sig_df <- shp_sig@data
 
 # dataframe to tbl
@@ -21,9 +21,12 @@ dist_sig <- sig_df %>%
 ggsave(filename = "figs/dist_sig.pdf", dist_sig, width = 8, height = 7)
 
 # numerical
-sig_df %>%
+summari_sig <- sig_df %>%
   select(B, M, K, L, BI, pop_density) %>%
   apply(2, function(t) {
-    c(mean = mean(t), var = var(t), summary(t))
-    }) %>%
+    c(mean = mean(t), sd = sd(t), summary(t))
+    })
+
+# insert to latex
+summari_sig %>%
   xtable::xtable()
