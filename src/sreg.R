@@ -69,7 +69,7 @@ bmk_p <- summary(bmk_fit, pars = "y_rep")$summary[,1]
 l_p <- summary(l_fit, pars = "y_rep")$summary[,1]
 samp_sig <- shp_sig
 samp_sig@data %<>%
-  mutate(BMK = B+M+K, BMK_p = bmk_p, L_p = l_p, BI_p = BMK_p/L_p) %>%
+  mutate(BMK = B+M+K, BMK_p = bmk_p, L_p = l_p, BI_p = (BMK_p+1/2)/(L_p+1/2)) %>%
   select(BMK, BMK_p, L, L_p, BI, BI_p, id, area, SIG_KOR_NM)
 #### convert data
 samp_sig_fort <- fortify(samp_sig) %>% left_join(samp_sig@data, by = "id")
@@ -109,6 +109,6 @@ ggsave(filename = "figs/rebi_sig.pdf", rebi_sig, width = 8, height = 7)
 samp_sig@data %>%
   mutate(re_err = abs(BI_p - BI)/BI) %>%
   arrange(desc(re_err)) %>%
-  select(BI, BI_p, re_err) %>%
-  top_n(5) %>% # weired place 
+  select(SIG_KOR_NM, BI, BI_p, re_err) %>%
+  top_n(10) %>% # weired place 
   xtable::xtable()
