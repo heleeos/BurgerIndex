@@ -40,7 +40,7 @@
 \begin{equation}\label{eqn:originbi}
     BI = \frac{B+M+K}{L}.
 \end{equation}
-해당 유저는 버거지수가 도시발전지수로 사용될 수 있다고 주장하였으며, 이후에도 \citet{jang2014} 등에 의해 탐색적 자료분석을 통한 정성적 확인이나 \autoref{fig:jangmap}와 같은 위상구조를 이용한 시각화가 이루어졌다. 반면에 실제 지리정보시스템(geographic information system; GIS)을 이용한 시각화나 회귀분석을 통한 정량적 분석은 시도된 적이 거의 이루어지지 않았고, 버거지수의 구체적인 의미를 파악하는 데 어려움이 있었다.
+해당 유저는 버거지수가 도시발전지수로 사용될 수 있다고 주장하였으며, 이후에도 \citet{jang2014} 등에 의해 탐색적 자료분석을 통한 정성적 확인이나 \autoref{fig:jangmap}와 같은 위상구조를 이용한 시각화가 이루어졌다. 반면에 실제 지리정보시스템(geographic information system; GIS)을 이용한 시각화나 회귀분석을 통한 정량적 분석은 거의 이루어지지 않았고, 버거지수의 구체적인 의미를 파악하는 데 어려움이 있었다.
 
 \begin{figure}[!ht]
     \centering
@@ -91,7 +91,7 @@
     \item 각 시군구의 인접행렬(adjacency matrix; $W$)을 계산하여 저장한다.
 \end{enumerate}
 
-이때, 패스트푸드 매장 수 자료에서 일부 도시(특별시, 광역시를 제외한 시)의 구별 자료가 제공되어있지 않아 중소도시의 각 구별 매장 수는 전체 도시의 매장 수를 평균낸 값으로 할당하였다. GIS 자료의 전처리를 위한 코드는 서울대학교 공간통계 연구실의 자료를 활용하였다. 자료 전처리를 위한 소스코드는 github repository의 \texttt{scr/data\_preproc.R}에 제공되어 있으며, 전처리 결과의 data frame은 \texttt{load(data/shp\_sig.Rdata)}로 불러올 수 있다.
+이때, 패스트푸드 매장 수 자료에서 일부 도시(특별시, 광역시를 제외한 시)의 구별 자료가 제공되어있지 않아 중소도시의 각 구별 매장 수는 전체 도시의 매장 수를 평균낸 값으로 할당하였다. GIS 자료의 전처리를 위한 코드는 서울대학교 공간통계 연구실의 자료를 활용하였다. 자료 전처리를 위한 소스코드는 github repository의 \texttt{scr/data\_preproc.R}에 제공되어 있으며, 전처리 결과의 spatial data frame \texttt{shp\_sig}\는 \texttt{rdata/shp\_sig.Rdata}에, 인접행렬 \texttt{W}\는 \texttt{rdata/nb\_sig\_mat.csv}에 저장하였다.
 
 \section{Exploratory Data Analysis}\label{sec:eda}
 
@@ -199,6 +199,8 @@
 
 모형을 적합하는 과정에서 오류가 발생했는데, 이것은 $W$의 특정 행의 모든 성분들이 0으로 계산되는 것에서 기인했다. 확인 결과 속초, 부천 등 실제로는 인접한 지역이 존재하는 위치이나 GIS 자료의 문제로 인접한 지역이 존재하지 않는 자료처럼 계산되고 있었다. 이 문제를 회피하기 위해 모든 성분이 0으로 계산되는 $W$의 행의 대각성분에 1을 더해주었다.
 
+표본 추출에는 iMac(Intel Kaby Lake (7th) 3.5GHz Quad core i5-7600, 16GB RAM) 기준 chain 당 20분 정도의 시간이 소요되었다. 추출된 표본들(\texttt{bmk\_fit}, \texttt{l\_fit})\을 \texttt{rdata/sreg.Rdata} 파일에 저장하였다.
+
 \section{Results}\label{sec:result}
 
 이번 장에서는 회귀모형 (\ref{eqn:sreg})에서 추출된 사후표본과 예측치에 대한 해석을 다룬다.
@@ -286,7 +288,7 @@ $$BI_i = \frac{BMK_i}{L_i} = \expt{\frac{BMK_{ij}+1/2}{L_{ij}+1/2}} \approx \fra
     \label{fig:tpredbi}
 \end{figure}   
 
-실제로 \autoref{fig:rebi}와 같이 상대오차 $RE_i = \abs{\hat{BI_i} - BI_i}/BI_i$를 계산하여 그려보면 일부 극단적인 지점을 제외한 곳에서 신뢰할 만한 수준의 예측력을 보임을 확인할 수 있다. 특히, 대도시의 버거지수는 매우 잘 예측된다는 점을 확인할 수 있다. 이는 패스트푸드 매장의 입점 과정에서 상권분석이 함께 고려된다는 사실로 정당화할 수 있다. 또한, 버거지수에서 패스트푸드 매장의 수의 비율을 사용하는 것은 버거지수에 영향을 미치는 다른 요소(면적 등)\을 정규화(normalize)하는 과정으로 이해할 수 있다. 
+실제로 \autoref{fig:rebi}와 같이 상대오차 $RE_i = \abs{\hat{BI_i} - BI_i}/BI_i$를 계산하여 그려보면 일부 극단적인 지점을 제외한 곳에서 신뢰할 만한 수준의 예측력을 보임을 확인할 수 있다. 특히, 대도시의 버거지수는 매우 잘 예측된다는 점을 확인할 수 있다. 이는 패스트푸드 매장의 입점 과정에서 상권분석이 고려된다는 사실로 정당화할 수 있다. 또한, 버거지수에서 패스트푸드 매장의 수의 비율을 사용하는 것은 버거지수에 영향을 미치는 다른 요소(면적 등)\을 정규화(normalize)하는 과정으로 이해할 수 있다. 
 
 \autoref{tbl:rebitop5}에는 상대오차가 높은 상위 10개 지점을 정리하였다. 해당 지역들은 모두 버거지수와 예측치가 모두 작아 상대오차가 높게 계산된 것으로 확인된다. 이러한 문제는 비추정량을 사용하여 발생한 것으로 보인다. 또한, 완도군, 울릉군과 같이 인접한 지역이 거의 없는 도서지역에서 예측력이 떨어진다는 점을 확인할 수 있다.
 
