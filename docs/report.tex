@@ -188,7 +188,7 @@
 본 보고서에서는 $i$번째 버거지수 $BI_i$를 다음과 같은 관계를 가진다고 가정하고 모형을 적합하였다.
 \begin{equation}\label{eqn:sreg}
     \begin{gathered}
-    BI_i = \frac{(B+M+K)_i}{L_i},\\
+    BI_i = \frac{(B+M+K)_i+1/2}{L_i+1/2},\\
     BMK_i = (B+M+K)_i \sim \textrm{Poisson}(E_i \theta_i), \quad L_i \sim \textrm{Poisson}(E_i \phi_i), \\
     \log \theta_i = x_i^T \beta_1 + \epsilon_{1i}, \log \phi_i = x_i^T \beta_2 + \epsilon_{2i}, \\
     \epsilon_{ji} \sim \textrm{Proper CAR model}, \quad j=1,2. \\
@@ -266,9 +266,9 @@
     \label{fig:predplot}
 \end{figure}   
 
-\autoref{fig:tpredbi}\은 실제 버거지수와 회귀모형으로부터 계산한 버거지수를 나타낸 것이다. 이때, 버거지수의 추정량은 비추정량(ratio estimator), 즉, 
-$$BI_i = \frac{BMK_i}{L_i} = \expt{\frac{BMK_{ij}+1/2}{L_{ij}+1/2}} \approx \frac{\overline{BMK}_i+1/2}{\overline{L}_i+1/2} = \hat{BI_i}$$
-를 사용하였다. 회귀모형이 버거지수를 상당히 잘 예측하고 있는 것을 확인할 수 있다.
+\autoref{fig:tpredbi}\은 실제 버거지수와 회귀모형으로부터 계산한 버거지수를 나타낸 것이다. 이때, 사후표본 $BNK_{ij},~L_{ij}$로 계산한 버거지수의 추정량 $\hat{BI_i}$\는 비추정량(ratio estimator) 
+$$BI_i = \expt{BI_{ij}} = \expt{\frac{BMK_{ij}+1/2}{L_{ij}+1/2}} \approx \frac{\overline{BMK}_i+1/2}{\overline{L}_i+1/2} = \hat{BI_i}$$
+\를 사용하였다. 회귀모형이 버거지수를 상당히 잘 예측하고 있는 것을 확인할 수 있다.
 
 \begin{figure}[!ht]
     \centering
